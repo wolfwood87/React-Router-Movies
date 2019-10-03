@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import MovieList from './MovieList.js';
 
 const Movie = (props) => {
   const [movie, setMovie] = useState({});
+  const [nStars, setNStars] = useState([]);
  
   useEffect(() => {
-    const id = 1;
+    // const id = props.movies.find(movie => props.match.params.id === `${movie.id}`);;
+    const id = props.match.params.id;
     // change ^^^ that line and grab the id from the URL
     // You will NEED to add a dependency array to this effect hook
 
@@ -13,12 +16,13 @@ const Movie = (props) => {
         .get(`http://localhost:5000/api/movies/${id}`)
         .then(response => {
           setMovie(response.data);
+          setNStars(response.data.stars);
         })
         .catch(error => {
           console.error(error);
         });
 
-  },[]);
+  },[props.match.params.id]);
   
   // Uncomment this only when you have moved on to the stretch goals
   // const saveMovie = () => {
@@ -43,7 +47,7 @@ const Movie = (props) => {
         </div>
         <h3>Actors</h3>
 
-        {stars.map(star => (
+        {nStars.map(star => (
           <div key={star} className="movie-star">
             {star}
           </div>
