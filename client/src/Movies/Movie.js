@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MovieList from './MovieList.js';
+import MovieCard from './MovieCard.js';
 
 const Movie = (props) => {
   const [movie, setMovie] = useState({});
@@ -17,6 +18,7 @@ const Movie = (props) => {
         .then(response => {
           setMovie(response.data);
           setNStars(response.data.stars);
+          
         })
         .catch(error => {
           console.error(error);
@@ -37,23 +39,7 @@ const Movie = (props) => {
   const { title, director, metascore, stars } = movie;
   return (
     <div className="save-wrapper">
-      <div className="movie-card">
-        <h2>{title}</h2>
-        <div className="movie-director">
-          Director: <em>{director}</em>
-        </div>
-        <div className="movie-metascore">
-          Metascore: <strong>{metascore}</strong>
-        </div>
-        <h3>Actors</h3>
-
-        {nStars.map(star => (
-          <div key={star} className="movie-star">
-            {star}
-          </div>
-        ))}
-      </div>
-      <div className="save-button">Save</div>
+      <MovieCard stars= {nStars} title={title} director={director} metascore={metascore}/>
     </div>
   );
 }
