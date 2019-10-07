@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Movie from './Movie.js';
 import MovieList from './MovieList.js';
 
 const MovieCard = props => {
+  
   return (
     <div className="movie-card">
       <h2>{props.title}</h2>
